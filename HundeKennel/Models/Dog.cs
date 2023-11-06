@@ -3,12 +3,14 @@ using System;
 using System.Buffers;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace HundeKennel.Models;
 
+[Table("Dogs")]
 public class Dog
 {
     public string? Pedigree { get; set; }
@@ -34,10 +36,15 @@ public class Dog
     public string? MB { get; set; }
     public byte[]? Image { get; set; }
 
-    public Breeder? Breeder { get; set; }
-    public Owner? Owner { get; set; }
+    public string? Dad { get; set; }
+    public string? Mom { get; set; }
 
-    public string? DadString { get; set; }
-    public string? MomString { get; set; }
+    public int? BreederID { get; set; }
+    public int? OwnerID { get; set; }
+    //   [NotMapped]
+    //public Breeder? Breeder { get; set; }
+    //[NotMapped]
+    //public Owner? Owner { get; set; }
+    [NotMapped]
     public ObservableCollection<Dog?>? Parents { get; set; } = new();
 }

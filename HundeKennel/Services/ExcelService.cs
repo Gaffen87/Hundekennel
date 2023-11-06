@@ -10,9 +10,9 @@ using HundeKennel.Services.Helpers;
 
 namespace HundeKennel.Services;
 
-public static class ExcelService
+public class ExcelService
 {
-	public static List<Dog> Excel(string path)
+	public List<Dog> Excel(string path)
 	{
 		List<Dog> dogs;
 
@@ -29,15 +29,15 @@ public static class ExcelService
 		return dogs;
 	}
 
-	static List<Dog> ParseDogs(List<ExcelDogHelper> Edogs)
+	List<Dog> ParseDogs(List<ExcelDogHelper> Edogs)
 	{
 		List<Dog> dogs = new();
 
 		foreach (var Edog in Edogs)
 		{
-			Dog dog = new Dog()
+			Dog dog = new()
 			{
-				Pedigree = Edog.Pedigree,
+				Pedigree = Edog.Pedigree.Trim(),
 				Chip = Edog.Chip,
 				Name = Edog.Name,
 				Sex = Edog.Sex,
@@ -46,14 +46,14 @@ public static class ExcelService
 				Titles = Edog.DKTitles,
 				HD = Edog.HD,
 				AD = Edog.AD,
-				HZ = Edog.HZ,
+				HZ =Edog.HZ,
 				SP = Edog.SP,
 				HDIndex = Edog.HDIndex,
 				AK = Edog.AK,
 				BreedingStatus = Edog.BreedingStatus,
 				MB = Edog.MB,
-				DadString = Edog.Dad,
-				MomString = Edog.Mom
+				Dad = Edog.Dad,
+				Mom = Edog.Mom
 			};
 
 			bool convertSucces = DateTime.TryParse(Edog.BirthDate, out DateTime date);
@@ -68,20 +68,23 @@ public static class ExcelService
 			}
 			_ = Edog.Dead == "1" ? dog.Dead = true : dog.Dead = false;
 
+			if (dogs.Any(x => x.Pedigree == dog.Pedigree))
+			{
+				continue;
+			}
 			dogs.Add(dog);
 		}
-
 		return FindParents(dogs);
 	}
 
-	static List<Dog> FindParents(List<Dog> dogs)
+	List<Dog> FindParents(List<Dog> dogs)
 	{
 		foreach (Dog dog in dogs)
 		{
 			dog.Parents = new()
 			{
-				dogs.FirstOrDefault(x => x.Pedigree == dog.DadString) ?? new Dog() { Name = "Ingen Data" },
-				dogs.FirstOrDefault(x => x.Pedigree == dog.MomString) ?? new Dog() { Name = "Ingen Data" }
+				dogs.FirstOrDefault(x => x.Pedigree == dog.Dad) ?? new Dog() { Name = "Ingen Data" },
+				dogs.FirstOrDefault(x => x.Pedigree == dog.Mom) ?? new Dog() { Name = "Ingen Data" }
 			};
 		}
 

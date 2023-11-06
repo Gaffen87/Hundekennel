@@ -1,8 +1,10 @@
 ﻿using HundeKennel.Models;
 using HundeKennel.Services;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,24 +20,54 @@ using System.Windows.Shapes;
 
 namespace HundeKennel
 {
-	/// <summary>
-	/// Interaction logic for MainWindow.xaml
-	/// </summary>
 	public partial class MainWindow : Window
 	{
-		DataService dataService;
-		public MainWindow()
+		readonly ExcelService excelService;
+		readonly DataService dataService;
+		public MainWindow(ExcelService excelService, DataService dataService)
 		{
 			InitializeComponent();
 
-			dataService = new DataService();
+			this.dataService = dataService;
+			this.excelService = excelService;
 		}
 
 		private async void Button_Click(object sender, RoutedEventArgs e)
 		{
+			((Button)sender!).IsEnabled = false;
 			ProgressBar.IsIndeterminate = true;
-			List<Dog> dogs = ExcelService.Excel(@"C:\Users\askel\Downloads\HundeData.xlsx");
-			await dataService.InsertListAsync(dogs);
+
+			OpenFileDialog openFileDialog = new()
+			{
+				Filter = "Excel Files|*.xls;*.xlsx;*.xlsm"
+			};
+			openFileDialog.ShowDialog();
+			if (openFileDialog.FileName != "")
+			{
+				string path = openFileDialog.FileName;
+				List<Dog> dogs = excelService.Excel(path);
+
+				//foreach (Dog dog in dogs)
+				//{
+				//	try
+				//	{
+				//		await dataService.InsertDog(dog);
+				//	}
+				//	catch (Exception ex)
+				//	{
+				//		Debug.WriteLine(ex.Message);
+				//		continue;
+				//	}
+				//}
+				Stopwatch stopwatch = new();
+				stopwatch.Start();
+				await dataService.InsertList(dogs);
+				stopwatch.Stop();
+				Debug.WriteLine("Done in "+ stopwatch.ElapsedMilliseconds + " ms");
+				((Button)sender!).IsEnabled = true;
+				ProgressBar.IsIndeterminate = false;
+			}
+			((Button)sender!).IsEnabled = true;
 			ProgressBar.IsIndeterminate = false;
 		}
 	}
