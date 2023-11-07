@@ -8,6 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Ressources\6530128f75731_thumb9002.png" />
+    <None Remove="Ressources\petindericon.png" />
+    <None Remove="Ressources\sex-love-life-2015-06-tindog-main.webp" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
     <PackageReference Include="Dapper" Version="2.1.15" />
     <PackageReference Include="ExcelDataReader" Version="3.6.0" />
@@ -17,18 +23,29 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.1" />
     <PackageReference Include="Syncfusion.Licensing" Version="23.1.43" />
+    <PackageReference Include="Syncfusion.PropertyGrid.WPF" Version="23.1.43" />
     <PackageReference Include="Syncfusion.SfProgressBar.WPF" Version="23.1.43" />
     <PackageReference Include="Syncfusion.SfTreeView.WPF" Version="23.1.43" />
     <PackageReference Include="Z.Dapper.Plus" Version="6.0.5" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\" />
-    <Folder Include="ViewModels\" />
+    <Resource Include="Ressources\6530128f75731_thumb9002.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Ressources\petindericon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Ressources\sex-love-life-2015-06-tindog-main.webp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>
     <None Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Ressources\BeFunky-collage-8.webp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

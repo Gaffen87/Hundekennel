@@ -1,0 +1,25 @@
+﻿<Window
+    x:Class="HundeKennel.Views.DetailsView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:HundeKennel.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+    xmlns:viewModels="clr-namespace:HundeKennel.ViewModels"
+    Title="DetailsView"
+    Width="800"
+    Height="450"
+    d:DataContext="{d:DesignInstance Type=viewModels:DetailsViewModel}"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+    <Grid>
+        <syncfusion:PropertyGrid
+            x:Name="DogDetailsGrid"
+            AutoGeneratingPropertyGridItem="DogDetailsGrid_AutoGeneratingPropertyGridItem"
+            FontWeight="Bold"
+            SelectedObject="{Binding SelectedDog}"
+            SortDirection="{x:Null}"
+            ViewBackgroundColor="Cyan" />
+    </Grid>
+</Window>

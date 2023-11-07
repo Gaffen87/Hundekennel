@@ -1,56 +1,49 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Dapper;
-using System.Data;
-using System.Data.SqlClient;
-using Microsoft.Extensions.Configuration;
+﻿using Dapper;
 using Microsoft.Data.SqlClient;
-using Z.Dapper.Plus;
-using Z.BulkOperations;
-using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Configuration;
+using System;
+using System.Collections.Generic;
+using System.Data;
 using System.Diagnostics;
-using System.Reflection.Metadata.Ecma335;
+using System.Threading.Tasks;
+using Z.Dapper.Plus;
 
-namespace HundeKennel.Services
+namespace HundeKennel.Services;
+
+public class DBAccess : IDBAccess
 {
-	public class DBAccess : IDBAccess
+	private readonly string? connectionString;
+
+	public DBAccess()
 	{
-		private readonly string? connectionString;
+		IConfigurationRoot config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
+		this.connectionString = config.GetConnectionString("MyDBConnection");
+	}
 
-		public DBAccess()
+	public async Task<IEnumerable<T>> LoadData<T, U>(string sql, U parameters)
+	{
+		using IDbConnection conn = new SqlConnection(connectionString);
+
+		return await conn.QueryAsync<T>(sql, parameters, commandType: CommandType.StoredProcedure);
+	}
+
+	public async Task SaveData<T>(string sql, T parameters)
+	{
+		using IDbConnection conn = new SqlConnection(connectionString);
+
+		await conn.ExecuteAsync(sql, parameters, commandType: CommandType.StoredProcedure);
+	}
+	
+	public async Task SaveBulk<T>(T parameters)
+	{
+		using IDbConnection conn = new SqlConnection(connectionString);
+		try
 		{
-			IConfigurationRoot config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
-			this.connectionString = config.GetConnectionString("MyDBConnection");
+			await conn.BulkActionAsync(x => x.BulkInsert(parameters));
 		}
-
-		public async Task<IEnumerable<T>> LoadData<T, U>(string sql, U parameters)
+		catch (Exception ex)
 		{
-			using IDbConnection conn = new SqlConnection(connectionString);
-
-			return await conn.QueryAsync<T>(sql, parameters);
-		}
-
-		public async Task SaveData<T>(string sql, T parameters)
-		{
-			using IDbConnection conn = new SqlConnection(connectionString);
-
-			await conn.ExecuteAsync(sql, parameters);
-		}
-		
-		public async Task SaveBulk<T>(T parameters)
-		{
-			using IDbConnection conn = new SqlConnection(connectionString);
-			try
-			{
-				await conn.BulkActionAsync(x => x.BulkInsert(parameters));
-			}
-			catch (Exception ex)
-			{
-				Debug.WriteLine(ex.Message);
-			}
+			Debug.WriteLine(ex.Message);
 		}
 	}
 }

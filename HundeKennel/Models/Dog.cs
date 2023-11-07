@@ -3,6 +3,7 @@ using System;
 using System.Buffers;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -13,11 +14,16 @@ namespace HundeKennel.Models;
 [Table("Dogs")]
 public class Dog
 {
+    [DisplayName("Stambog")]
     public string? Pedigree { get; set; }
     public string? Chip { get; set; }
+    [DisplayName("Navn")]
     public string? Name { get; set; }
+    [DisplayName("Fødselsdato")]
     public DateTime? BirthDate { get; set; }
+    [DisplayName("Køn")]
     public string? Sex { get; set; }
+    [DisplayName("Farve")]
     public string? Color { get; set; }
 
     public string? DKTitles { get; set; }

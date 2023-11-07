@@ -1,8 +1,10 @@
 ﻿using HundeKennel.Models;
 using HundeKennel.Services;
+using HundeKennel.ViewModels;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
@@ -18,57 +20,21 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace HundeKennel
+namespace HundeKennel;
+
+public partial class MainWindow : Window
 {
-	public partial class MainWindow : Window
+	public MainWindow(MainViewModel viewModel)
 	{
-		readonly ExcelService excelService;
-		readonly DataService dataService;
-		public MainWindow(ExcelService excelService, DataService dataService)
+		InitializeComponent();
+		DataContext = viewModel;
+	}
+
+	private void DogListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+	{
+		if (DataContext is MainViewModel mainViewModel)
 		{
-			InitializeComponent();
-
-			this.dataService = dataService;
-			this.excelService = excelService;
-		}
-
-		private async void Button_Click(object sender, RoutedEventArgs e)
-		{
-			((Button)sender!).IsEnabled = false;
-			ProgressBar.IsIndeterminate = true;
-
-			OpenFileDialog openFileDialog = new()
-			{
-				Filter = "Excel Files|*.xls;*.xlsx;*.xlsm"
-			};
-			openFileDialog.ShowDialog();
-			if (openFileDialog.FileName != "")
-			{
-				string path = openFileDialog.FileName;
-				List<Dog> dogs = excelService.Excel(path);
-
-				//foreach (Dog dog in dogs)
-				//{
-				//	try
-				//	{
-				//		await dataService.InsertDog(dog);
-				//	}
-				//	catch (Exception ex)
-				//	{
-				//		Debug.WriteLine(ex.Message);
-				//		continue;
-				//	}
-				//}
-				Stopwatch stopwatch = new();
-				stopwatch.Start();
-				await dataService.InsertList(dogs);
-				stopwatch.Stop();
-				Debug.WriteLine("Done in "+ stopwatch.ElapsedMilliseconds + " ms");
-				((Button)sender!).IsEnabled = true;
-				ProgressBar.IsIndeterminate = false;
-			}
-			((Button)sender!).IsEnabled = true;
-			ProgressBar.IsIndeterminate = false;
+			mainViewModel.OpenDetails();
 		}
 	}
 }

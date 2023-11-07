@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 using ExcelMapper;
@@ -24,8 +25,6 @@ public class ExcelService
 
 		dogs = ParseDogs(Edogs);
 
-
-
 		return dogs;
 	}
 
@@ -40,6 +39,7 @@ public class ExcelService
 				Pedigree = Edog.Pedigree.Trim(),
 				Chip = Edog.Chip,
 				Name = Edog.Name,
+				//Sex = Edog.Sex == "H" ? "Han" : "Tæve",
 				Sex = Edog.Sex,
 				Color = Edog.Color,
 				DKTitles = Edog.DKTitles,
@@ -68,6 +68,7 @@ public class ExcelService
 			}
 			_ = Edog.Dead == "1" ? dog.Dead = true : dog.Dead = false;
 
+			// tjek om der allerede er en hund med samme Pedigree og spring over hvis true
 			if (dogs.Any(x => x.Pedigree == dog.Pedigree))
 			{
 				continue;
