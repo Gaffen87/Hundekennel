@@ -11,13 +11,7 @@ namespace HundeKennel.ViewModels
 	{
         public DetailsViewModel()
         {
-            SelectedDog = new Dog
-            {
-                Pedigree = "sdfjsdf09342",
-                Name = "Chili",
-                BirthDate = DateTime.Now,
-                Dead = false
-            };
+
         }
 
         public Dog? SelectedDog { get; set; }

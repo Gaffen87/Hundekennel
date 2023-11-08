@@ -2,7 +2,6 @@
 using HundeKennel.Services;
 using HundeKennel.ViewModels;
 using HundeKennel.Views;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Text;
@@ -26,27 +25,37 @@ public partial class App : Application
 		AppHost = Host.CreateDefaultBuilder()
 			.ConfigureServices((hostContext, services) =>
 			{
+				// Add MainWindow and its viewmodel to services
 				services.AddSingleton<MainWindow>();
 				services.AddSingleton<MainViewModel>();
+
+				// Add DetailsView and its viewmodel to services, + factory that creates them
+				services.AddTransient<DetailsView>();
+				services.AddTransient<DetailsViewModel>();
+				services.AddDetailsFactory<DetailsView>();
+
+				// Add Database services and excel reader class to services
 				services.AddTransient<DataService>();
 				services.AddTransient<ExcelService>();
 				services.AddTransient<IDBAccess, DBAccess>();
-
-				services.AddDetailsFactory<DetailsView>();
-
-				services.AddTransient<DetailsViewModel>();
-				services.AddTransient<DetailsView>();
 			})
 			.Build();
 	}
 
 	protected override async void OnStartup(StartupEventArgs e)
 	{
+		// Start up AppHost before rest of application
 		await AppHost!.StartAsync();
 
+		// Initializes MainViewModel
+		var viewModel = AppHost.Services.GetRequiredService<MainViewModel>();
+		await viewModel.InitializeAsync(); 
+
+		// Opens MainWindow
 		var startupWindow = AppHost.Services.GetRequiredService<MainWindow>();
 		startupWindow.Show(); // Opens MainWindow on startup
 
+		// starts application
 		base.OnStartup(e);
 	}
 

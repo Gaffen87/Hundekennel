@@ -11,15 +11,19 @@
     Width="800"
     Height="450"
     d:DataContext="{d:DesignInstance Type=viewModels:DetailsViewModel}"
+    Icon="/Resources/dogicon.bmp"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Grid>
-        <syncfusion:PropertyGrid
-            x:Name="DogDetailsGrid"
-            AutoGeneratingPropertyGridItem="DogDetailsGrid_AutoGeneratingPropertyGridItem"
-            FontWeight="Bold"
-            SelectedObject="{Binding SelectedDog}"
-            SortDirection="{x:Null}"
-            ViewBackgroundColor="Cyan" />
+        <StackPanel>
+            <Image Height="100" Source="{Binding SelectedDog.BitImage}" />
+            <syncfusion:PropertyGrid
+                x:Name="DogDetailsGrid"
+                AutoGeneratingPropertyGridItem="DogDetailsGrid_AutoGeneratingPropertyGridItem"
+                FontWeight="Bold"
+                SelectedObject="{Binding SelectedDog}"
+                SortDirection="{x:Null}"
+                ViewBackgroundColor="Cyan" />
+        </StackPanel>
     </Grid>
 </Window>

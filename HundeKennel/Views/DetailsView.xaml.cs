@@ -1,4 +1,5 @@
 ﻿using HundeKennel.ViewModels;
+using Syncfusion.Windows.PropertyGrid;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,7 +30,7 @@ namespace HundeKennel.Views
 
 		private void DogDetailsGrid_AutoGeneratingPropertyGridItem(object sender, Syncfusion.Windows.PropertyGrid.AutoGeneratingPropertyGridItemEventArgs e)
 		{
-			if (e.DisplayName == "Parents" || e.DisplayName == "BreederID" || e.DisplayName == "OwnerID")
+			if (e.DisplayName == "Parents" || e.DisplayName == "BreederID" || e.DisplayName == "OwnerID" || e.DisplayName == "BitImage" || e.DisplayName == "Image")
 				e.Cancel = true;
         }
     }

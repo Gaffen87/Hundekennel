@@ -1,17 +1,18 @@
-﻿using Syncfusion.Windows.Tools;
+﻿using Dapper;
+using Dapper.Contrib.Extensions;
+using Syncfusion.Windows.Shared;
 using System;
-using System.Buffers;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Drawing;
+using System.IO;
+using System.Net.Cache;
+using System.Windows.Media.Imaging;
 
 namespace HundeKennel.Models;
 
-[Table("Dogs")]
+[Dapper.Contrib.Extensions.Table("Dogs")]
 public class Dog
 {
     [DisplayName("Stambog")]
@@ -28,6 +29,9 @@ public class Dog
 
     public string? DKTitles { get; set; }
     public string? Titles { get; set; }
+
+    //public List<HealthData> HealthData { get; set; }
+    //public HDData HD { get; set; }
 
     public string? HD { get; set; }
     public string? AD { get; set; }
@@ -51,6 +55,76 @@ public class Dog
     //public Breeder? Breeder { get; set; }
     //[NotMapped]
     //public Owner? Owner { get; set; }
-    [NotMapped]
+    [Dapper.NotMapped]
     public ObservableCollection<Dog?>? Parents { get; set; } = new();
+    [Dapper.NotMapped]
+    public BitmapImage BitImage
+    {
+        get => ImageConverter();
+    }
+    [Dapper.NotMapped]
+    public BitmapImage Icon 
+    { 
+        get => IconConverter();
+    }
+    [Dapper.NotMapped]
+    public int Age
+    {
+        get => CalcAge();
+    }
+
+    BitmapImage IconConverter()
+    {
+		if (Image != null)
+		{
+			using MemoryStream stream = new MemoryStream(Image);
+			BitmapImage tmp = new();
+			tmp.BeginInit();
+			tmp.DecodePixelHeight = 80;
+			tmp.DecodePixelWidth = 80;
+			tmp.StreamSource = stream;
+			tmp.CacheOption = BitmapCacheOption.OnLoad;
+			tmp.EndInit();
+			return tmp;
+		}
+		return new BitmapImage(new(@"pack://application:,,,/Resources/dogicon.bmp"));
+	}
+
+    BitmapImage ImageConverter()
+    {
+        if (Image != null)
+        {
+            using MemoryStream stream = new MemoryStream(Image);
+            BitmapImage tmp = new();
+            tmp.BeginInit();
+            tmp.StreamSource = stream;
+            tmp.CacheOption = BitmapCacheOption.OnLoad;
+            tmp.EndInit();
+            return tmp;
+        }
+        return new BitmapImage(new(@"pack://application:,,,/Resources/dogicon.bmp"));
+	}
+
+	int CalcAge()
+    {
+        int age;
+        DateTime date = DateTime.Now;
+        if (BirthDate != null)
+        {
+            DateTime dt = (DateTime)BirthDate;
+		    if (date.Month < dt.Month || (date.Month == dt.Month && date.Day < dt.Day))
+		    {
+			    age = date.Year - dt.Year - 1;
+                if (age > 15)
+                    Dead = true;
+                return age;
+		    }
+            
+		    age = date.Year - dt.Year;
+            if (age > 15)
+                Dead = true;
+            return age;
+        }
+        return 0;
+	}
 }

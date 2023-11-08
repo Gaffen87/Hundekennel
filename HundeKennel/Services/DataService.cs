@@ -36,7 +36,32 @@ public class DataService
 
 	// Inserts a dog in db
 	public Task InsertDog(Dog dog) =>
-		db.SaveData("spInsertDog", dog);
+		db.SaveData("spInsertDog", new
+		{
+			dog.Pedigree,
+			dog.HD,
+			dog.HZ,
+			dog.AD,
+			dog.Name,
+			dog.SP,
+			dog.AK,
+			dog.BirthDate,
+			dog.BreederID,
+			dog.BreedingStatus,
+			dog.Chip,
+			dog.Color,
+			dog.Dad,
+			dog.Dead,
+			dog.MB,
+			dog.Mom,
+			dog.Image,
+			dog.IndexDate,
+			dog.HDIndex,
+			dog.Sex,
+			dog.DKTitles,
+			dog.Titles,
+			dog.OwnerID
+		});
 
 	// Inserts a list of dogs in db
 	public Task InsertList(List<Dog> dogs) =>
@@ -48,5 +73,30 @@ public class DataService
 
 	// Updates dog with matching pedigree in db
 	public Task UpdateDog(Dog dog) =>
-		db.SaveData("spUpdateDog", dog);
+		db.SaveData("spUpdateDog", new 
+		{
+			dog.Pedigree,
+			dog.HD,
+			dog.HZ,
+			dog.AD,
+			dog.Name,
+			dog.SP,
+			dog.AK,
+			dog.BirthDate,
+			dog.BreederID,
+			dog.BreedingStatus,
+			dog.Chip,
+			dog.Color,
+			dog.Dad,
+			dog.Dead,
+			dog.MB,
+			dog.Mom,
+			dog.Image,
+			dog.IndexDate,
+			dog.HDIndex,
+			dog.Sex,
+			dog.DKTitles,
+			dog.Titles,
+			dog.OwnerID
+		});
 }

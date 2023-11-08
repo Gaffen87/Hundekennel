@@ -1,40 +1,21 @@
-﻿using HundeKennel.Models;
-using HundeKennel.Services;
-using HundeKennel.ViewModels;
-using Microsoft.Win32;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using HundeKennel.ViewModels;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace HundeKennel;
 
 public partial class MainWindow : Window
 {
+	readonly MainViewModel viewModel;
 	public MainWindow(MainViewModel viewModel)
 	{
 		InitializeComponent();
+		this.viewModel = viewModel;
 		DataContext = viewModel;
 	}
 
 	private void DogListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
 	{
-		if (DataContext is MainViewModel mainViewModel)
-		{
-			mainViewModel.OpenDetails();
-		}
+		viewModel.OpenDetails();
 	}
 }
