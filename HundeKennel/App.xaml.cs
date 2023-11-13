@@ -1,4 +1,5 @@
 ﻿using HundeKennel.Factories;
+using HundeKennel.Models;
 using HundeKennel.Services;
 using HundeKennel.ViewModels;
 using HundeKennel.Views;
@@ -6,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Text;
 using System.Windows;
-
+using System.Windows.Documents;
 
 namespace HundeKennel;
 
@@ -34,6 +35,11 @@ public partial class App : Application
 				services.AddTransient<DetailsViewModel>();
 				services.AddDetailsFactory<DetailsView>();
 
+				// 
+				services.AddTransient<PedigreeView>();
+				services.AddTransient<PedigreeViewModel>();
+				services.AddDetailsFactory<PedigreeView>();
+
 				// Add Database services and excel reader class to services
 				services.AddTransient<DataService>();
 				services.AddTransient<ExcelService>();
@@ -48,12 +54,10 @@ public partial class App : Application
 		await AppHost!.StartAsync();
 
 		// Initializes MainViewModel
-		var viewModel = AppHost.Services.GetRequiredService<MainViewModel>();
-		await viewModel.InitializeAsync(); 
+		await AppHost.Services.GetRequiredService<MainViewModel>().InitializeAsync();
 
 		// Opens MainWindow
-		var startupWindow = AppHost.Services.GetRequiredService<MainWindow>();
-		startupWindow.Show(); // Opens MainWindow on startup
+		AppHost.Services.GetRequiredService<MainWindow>().Show();
 
 		// starts application
 		base.OnStartup(e);

@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ExcelMapper;
+﻿using ExcelMapper;
 
 namespace HundeKennel.Services.Helpers
 {
-    public class ExcelDogHelper
+	public class ExcelDogHelper
     {
         [ExcelColumnName("Stambog")]
         public string? Pedigree { get; set; }

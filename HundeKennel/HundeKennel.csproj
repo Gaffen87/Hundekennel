@@ -26,11 +26,15 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.1" />
-    <PackageReference Include="Syncfusion.Licensing" Version="23.1.43" />
-    <PackageReference Include="Syncfusion.PropertyGrid.WPF" Version="23.1.43" />
-    <PackageReference Include="Syncfusion.SfProgressBar.WPF" Version="23.1.43" />
-    <PackageReference Include="Syncfusion.SfTreeView.WPF" Version="23.1.43" />
+    <PackageReference Include="Syncfusion.Licensing" Version="23.1.44" />
+    <PackageReference Include="Syncfusion.PropertyGrid.WPF" Version="23.1.44" />
+    <PackageReference Include="Syncfusion.SfProgressBar.WPF" Version="23.1.44" />
+    <PackageReference Include="Syncfusion.SfTreeView.WPF" Version="23.1.44" />
     <PackageReference Include="Z.Dapper.Plus" Version="6.0.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DateTimeExtensions\DateTimeExtensions.csproj" />
   </ItemGroup>
 
   <ItemGroup>

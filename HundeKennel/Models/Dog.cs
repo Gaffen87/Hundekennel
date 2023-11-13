@@ -1,13 +1,8 @@
-﻿using Dapper;
-using Dapper.Contrib.Extensions;
-using Syncfusion.Windows.Shared;
+﻿using DateTimeExtensions;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Drawing;
 using System.IO;
-using System.Net.Cache;
 using System.Windows.Media.Imaging;
 
 namespace HundeKennel.Models;
@@ -29,9 +24,6 @@ public class Dog
 
     public string? DKTitles { get; set; }
     public string? Titles { get; set; }
-
-    //public List<HealthData> HealthData { get; set; }
-    //public HDData HD { get; set; }
 
     public string? HD { get; set; }
     public string? AD { get; set; }
@@ -70,7 +62,7 @@ public class Dog
     [Dapper.NotMapped]
     public int Age
     {
-        get => CalcAge();
+        get => BirthDate.Age();
     }
 
     BitmapImage IconConverter()
@@ -103,28 +95,5 @@ public class Dog
             return tmp;
         }
         return new BitmapImage(new(@"pack://application:,,,/Resources/dogicon.bmp"));
-	}
-
-	int CalcAge()
-    {
-        int age;
-        DateTime date = DateTime.Now;
-        if (BirthDate != null)
-        {
-            DateTime dt = (DateTime)BirthDate;
-		    if (date.Month < dt.Month || (date.Month == dt.Month && date.Day < dt.Day))
-		    {
-			    age = date.Year - dt.Year - 1;
-                if (age > 15)
-                    Dead = true;
-                return age;
-		    }
-            
-		    age = date.Year - dt.Year;
-            if (age > 15)
-                Dead = true;
-            return age;
-        }
-        return 0;
 	}
 }

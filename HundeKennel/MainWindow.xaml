@@ -3,7 +3,6 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:HundeKennel"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:model="clr-namespace:HundeKennel.Models"
     xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
@@ -99,8 +98,9 @@
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="30" />
+                            <ColumnDefinition Width="3*" />
                             <ColumnDefinition />
-                            <ColumnDefinition Width="75" />
+                            <ColumnDefinition Width="1*" />
                         </Grid.ColumnDefinitions>
                         <Image
                             Width="25"
@@ -176,10 +176,43 @@
                                 </TextBlock>
                             </StackPanel>
                         </StackPanel>
-                        <StackPanel Grid.Column="3" HorizontalAlignment="Left">
+                        <StackPanel Grid.Column="3">
+                            <TextBlock Text="{Binding AK}" />
+                            <TextBlock>
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding BreedingStatus}" Value="0">
+                                                <Setter Property="Text" Value="Avlsstatus: Inaktiv" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding BreedingStatus}" Value="1">
+                                                <Setter Property="Text" Value="Avlsstatus: Aktiv" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding BreedingStatus}" Value="{x:Null}">
+                                                <Setter Property="Text" Value="Avlsstatus: Ukendt" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </StackPanel>
+                        <StackPanel Grid.Column="2" HorizontalAlignment="Left">
                             <TextBlock Text="{Binding Color, StringFormat=Farve: {0}}" />
-                            <TextBlock Text="{Binding Sex, StringFormat=Køn: {0}}" />
-                            <TextBlock Text="{Binding Age, StringFormat=Alder: {0}}" />
+                            <TextBlock>
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Sex}" Value="H">
+                                                <Setter Property="Text" Value="Han" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Sex}" Value="T">
+                                                <Setter Property="Text" Value="Tæve" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                            <TextBlock Text="{Binding Age, StringFormat={}{0} År}" />
                         </StackPanel>
                     </Grid>
                 </DataTemplate>
@@ -188,11 +221,10 @@
 
         <Button
             Grid.Row="1"
-            Width="40"
             Margin="0,15,0,15"
             HorizontalAlignment="Center"
-            Command="{Binding imageconverterCommand}"
-            Content="Button" />
+            Command="{Binding ShowTreeViewCommand}"
+            Content="Åben sammenligning" />
 
         <Grid
             Grid.Row="4"
@@ -276,6 +308,29 @@
             </StackPanel>
 
         </Grid>
+        <StackPanel
+            Grid.Row="1"
+            Margin="33,0,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center">
+            <Button
+                Command="{Binding SetCompareDogsCommand}"
+                CommandParameter="Left"
+                Content="1. hund" />
+            <Label Content="{Binding LeftCompare.Name}" />
+        </StackPanel>
+        
+        <StackPanel
+            Grid.Row="1"
+            Margin="0,0,33,0"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center">
+            <Button
+                Command="{Binding SetCompareDogsCommand}"
+                CommandParameter="Right"
+                Content="2. hund" />
+            <Label Content="{Binding RightCompare.Name}" />
+        </StackPanel>
 
     </Grid>
 </Window>

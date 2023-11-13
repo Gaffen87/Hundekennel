@@ -1,0 +1,334 @@
+﻿<Window
+    x:Class="HundeKennel.Views.PedigreeView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:HundeKennel.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+    xmlns:viewModels="clr-namespace:HundeKennel.ViewModels"
+    Title="PedigreeView"
+    Width="1250"
+    Height="800"
+    d:DataContext="{d:DesignInstance viewModels:PedigreeViewModel}"
+    Background="#f48277"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Image
+            Grid.ColumnSpan="2"
+            Margin="-10,0,-10,0"
+            Source="/Resources/6530128f75731_thumb9002.png"
+            Stretch="Fill" />
+
+        <syncfusion:SfTreeView
+            x:Name="TreeViewLeft"
+            Grid.Row="1"
+            Margin="10"
+            Background="White"
+            ChildPropertyName="Parents"
+            ItemHeight="60"
+            ItemsSource="{Binding TreeViewDogLeft, UpdateSourceTrigger=PropertyChanged}"
+            ShowLines="True">
+            <syncfusion:SfTreeView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.BitmapEffect>
+                            <DropShadowBitmapEffect
+                                Direction="320"
+                                Opacity="0.5"
+                                ShadowDepth="10"
+                                Softness="1"
+                                Color="Black" />
+                        </Grid.BitmapEffect>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Height="50" Source="{Binding BitImage}" />
+                            <StackPanel>
+                                <TextBlock
+                                    Margin="5,0,0,0"
+                                    FontSize="15"
+                                    FontWeight="Bold"
+                                    Text="{Binding Name}" />
+                                <StackPanel Margin="5,0,0,0" Orientation="Horizontal">
+                                    <TextBlock>
+                                        <Run Text="HD: " /><Run FontWeight="SemiBold" Text="{Binding HD}" />
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding HD}" Value="{x:Null}">
+                                                        <Setter Property="Visibility" Value="Collapsed" />
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding HD}" Value="">
+                                                        <Setter Property="Visibility" Value="Collapsed" />
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding HD}" Value="0">
+                                                        <Setter Property="Visibility" Value="Collapsed" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                    <TextBlock Margin="10,0,0,0">
+                                        <Run Text="AD: " /><Run FontWeight="SemiBold" Text="{Binding AD}" />
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding AD}" Value="{x:Null}">
+                                                        <Setter Property="Visibility" Value="Collapsed" />
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding AD}" Value="">
+                                                        <Setter Property="Visibility" Value="Collapsed" />
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding AD}" Value="0">
+                                                        <Setter Property="Visibility" Value="Collapsed" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                    <TextBlock Margin="10,0,0,0">
+                                        <Run Text="HZ: " /><Run FontWeight="SemiBold" Text="{Binding HZ}" />
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding HZ}" Value="{x:Null}">
+                                                        <Setter Property="Visibility" Value="Collapsed" />
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding HZ}" Value="">
+                                                        <Setter Property="Visibility" Value="Collapsed" />
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding HZ}" Value="0">
+                                                        <Setter Property="Visibility" Value="Collapsed" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                    <TextBlock Margin="10,0,0,0">
+                                        <Run Text="SP: " /><Run FontWeight="SemiBold" Text="{Binding SP}" />
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding SP}" Value="{x:Null}">
+                                                        <Setter Property="Visibility" Value="Collapsed" />
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding SP}" Value="">
+                                                        <Setter Property="Visibility" Value="Collapsed" />
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding SP}" Value="0">
+                                                        <Setter Property="Visibility" Value="Collapsed" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel Margin="50,0,0,0">
+                                <Button
+                                    Background="#f48277"
+                                    Content="DK Titler"
+                                    ToolTip="{Binding DKTitles}"
+                                    ToolTipService.HasDropShadow="True"
+                                    ToolTipService.InitialShowDelay="0">
+                                    <Button.Style>
+                                        <Style TargetType="Button">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding DKTitles}" Value="{x:Null}">
+                                                    <Setter Property="Visibility" Value="Collapsed" />
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding DKTitles}" Value="">
+                                                    <Setter Property="Visibility" Value="Collapsed" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+                                </Button>
+                                <Button
+                                    Margin="0,5,0,0"
+                                    Background="#f48277"
+                                    Content="Titler"
+                                    ToolTip="{Binding Titles}"
+                                    ToolTipService.HasDropShadow="True"
+                                    ToolTipService.InitialShowDelay="0">
+                                    <Button.Style>
+                                        <Style TargetType="Button">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Titles}" Value="{x:Null}">
+                                                    <Setter Property="Visibility" Value="Collapsed" />
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Titles}" Value="">
+                                                    <Setter Property="Visibility" Value="Collapsed" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+                                </Button>
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </syncfusion:SfTreeView.ItemTemplate>
+        </syncfusion:SfTreeView>
+
+        <syncfusion:SfTreeView
+            x:Name="TreeViewRight"
+            Grid.Row="1"
+            Grid.Column="1"
+            Margin="10"
+            Background="White"
+            ChildPropertyName="Parents"
+            ItemHeight="60"
+            ItemsSource="{Binding TreeViewDogRight, UpdateSourceTrigger=PropertyChanged}"
+            ShowLines="True">
+            <syncfusion:SfTreeView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.BitmapEffect>
+                            <DropShadowBitmapEffect
+                                Direction="320"
+                                Opacity="0.5"
+                                ShadowDepth="10"
+                                Softness="1"
+                                Color="Black" />
+                        </Grid.BitmapEffect>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Height="50" Source="{Binding BitImage}" />
+                            <StackPanel>
+                                <TextBlock
+                                    Margin="5,0,0,0"
+                                    FontSize="15"
+                                    FontWeight="Bold"
+                                    Text="{Binding Name}" />
+                                <StackPanel Margin="5,0,0,0" Orientation="Horizontal">
+                                    <TextBlock>
+                                        <Run Text="HD: " /><Run FontWeight="SemiBold" Text="{Binding HD}" />
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding HD}" Value="{x:Null}">
+                                                        <Setter Property="Visibility" Value="Collapsed" />
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding HD}" Value="">
+                                                        <Setter Property="Visibility" Value="Collapsed" />
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding HD}" Value="0">
+                                                        <Setter Property="Visibility" Value="Collapsed" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                    <TextBlock Margin="10,0,0,0">
+                                        <Run Text="AD: " /><Run FontWeight="SemiBold" Text="{Binding AD}" />
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding AD}" Value="{x:Null}">
+                                                        <Setter Property="Visibility" Value="Collapsed" />
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding AD}" Value="">
+                                                        <Setter Property="Visibility" Value="Collapsed" />
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding AD}" Value="0">
+                                                        <Setter Property="Visibility" Value="Collapsed" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                    <TextBlock Margin="10,0,0,0">
+                                        <Run Text="HZ: " /><Run FontWeight="SemiBold" Text="{Binding HZ}" />
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding HZ}" Value="{x:Null}">
+                                                        <Setter Property="Visibility" Value="Collapsed" />
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding HZ}" Value="">
+                                                        <Setter Property="Visibility" Value="Collapsed" />
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding HZ}" Value="0">
+                                                        <Setter Property="Visibility" Value="Collapsed" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                    <TextBlock Margin="10,0,0,0">
+                                        <Run Text="SP: " /><Run FontWeight="SemiBold" Text="{Binding SP}" />
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding SP}" Value="{x:Null}">
+                                                        <Setter Property="Visibility" Value="Collapsed" />
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding SP}" Value="">
+                                                        <Setter Property="Visibility" Value="Collapsed" />
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding SP}" Value="0">
+                                                        <Setter Property="Visibility" Value="Collapsed" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel Margin="50,0,0,0">
+                                <Button
+                                    Background="#f48277"
+                                    Content="DK Titler"
+                                    ToolTip="{Binding DKTitles}"
+                                    ToolTipService.HasDropShadow="True"
+                                    ToolTipService.InitialShowDelay="0">
+                                    <Button.Style>
+                                        <Style TargetType="Button">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding DKTitles}" Value="{x:Null}">
+                                                    <Setter Property="Visibility" Value="Collapsed" />
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding DKTitles}" Value="">
+                                                    <Setter Property="Visibility" Value="Collapsed" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+                                </Button>
+                                <Button
+                                    Margin="0,5,0,0"
+                                    Background="#f48277"
+                                    Content="Titler"
+                                    ToolTip="{Binding Titles}"
+                                    ToolTipService.HasDropShadow="True"
+                                    ToolTipService.InitialShowDelay="0">
+                                    <Button.Style>
+                                        <Style TargetType="Button">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Titles}" Value="{x:Null}">
+                                                    <Setter Property="Visibility" Value="Collapsed" />
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Titles}" Value="">
+                                                    <Setter Property="Visibility" Value="Collapsed" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+                                </Button>
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </syncfusion:SfTreeView.ItemTemplate>
+        </syncfusion:SfTreeView>
+    </Grid>
+</Window>

@@ -1,13 +1,10 @@
-﻿using System;
+﻿using ExcelMapper;
+using HundeKennel.Models;
+using HundeKennel.Services.Helpers;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection.Metadata.Ecma335;
-using System.Text;
-using System.Threading.Tasks;
-using ExcelMapper;
-using HundeKennel.Models;
-using HundeKennel.Services.Helpers;
 
 namespace HundeKennel.Services;
 
@@ -43,7 +40,7 @@ public class ExcelService
 				Sex = Edog.Sex,
 				Color = Edog.Color,
 				DKTitles = Edog.DKTitles,
-				Titles = Edog.DKTitles,
+				Titles = Edog.Titles,
 				HD = Edog.HD,
 				AD = Edog.AD,
 				HZ =Edog.HZ,
@@ -75,20 +72,22 @@ public class ExcelService
 			}
 			dogs.Add(dog);
 		}
-		return FindParents(dogs);
-	}
 
-	List<Dog> FindParents(List<Dog> dogs)
-	{
-		foreach (Dog dog in dogs)
-		{
-			dog.Parents = new()
-			{
-				dogs.FirstOrDefault(x => x.Pedigree == dog.Dad) ?? new Dog() { Name = "Ingen Data" },
-				dogs.FirstOrDefault(x => x.Pedigree == dog.Mom) ?? new Dog() { Name = "Ingen Data" }
-			};
-		}
-
+		//dogs = FindParents(dogs);
 		return dogs;
 	}
+
+	//public List<Dog> FindParents(List<Dog> dogs)
+	//{
+	//	foreach (Dog dog in dogs)
+	//	{
+	//		dog.Parents = new()
+	//		{
+	//			dogs.FirstOrDefault(x => x.Pedigree == dog.Dad) ?? new Dog() { Name = "Ingen Data" },
+	//			dogs.FirstOrDefault(x => x.Pedigree == dog.Mom) ?? new Dog() { Name = "Ingen Data" }
+	//		};
+	//	}
+
+	//	return dogs;
+	//}
 }

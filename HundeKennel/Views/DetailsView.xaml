@@ -15,10 +15,12 @@
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Grid>
+
         <StackPanel>
             <Image Height="100" Source="{Binding SelectedDog.BitImage}" />
             <syncfusion:PropertyGrid
                 x:Name="DogDetailsGrid"
+                Height="320"
                 AutoGeneratingPropertyGridItem="DogDetailsGrid_AutoGeneratingPropertyGridItem"
                 FontWeight="Bold"
                 SelectedObject="{Binding SelectedDog}"
