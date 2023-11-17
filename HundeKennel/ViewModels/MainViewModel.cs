@@ -7,7 +7,6 @@ using HundeKennel.Views;
 using Microsoft.Data.SqlClient;
 using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
@@ -24,7 +23,7 @@ public partial class MainViewModel : ObservableObject
 {
 	/*
 	 * 
-	 *				Constructor
+	 *		Constructor
 	 * 
 	 */
 	public MainViewModel(DataService data, ExcelService excel, IAbstractFactory<DetailsView> detailsFactory, IAbstractFactory<PedigreeView> pedigreeFactory, PedigreeViewModel pvm)
@@ -180,7 +179,7 @@ public partial class MainViewModel : ObservableObject
 		{
 			IsNotBusy = false;
 			Loading = true;
-			var dogs = excel.Excel(fileDialog.FileName);
+			var dogs = excel.ImportFromExcelFile(fileDialog.FileName);
 			foreach (var dog in dogs)
 			{
 				//if (Dogs!.Any(x => x.Pedigree == dog.Pedigree))

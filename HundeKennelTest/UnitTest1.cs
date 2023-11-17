@@ -35,7 +35,7 @@ public class UnitTest1
 	{
 		Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 		// sti navnet skal selvfølgelig ændres til at passe til ens egen computer
-		var dogs = excelService.Excel(@"C:\Users\askel\Downloads\HundeData.xlsx");
+		var dogs = excelService.ImportFromExcelFile(@"C:\Users\askel\Downloads\HundeData.xlsx");
 		Assert.IsNotNull(dogs);
 		Assert.AreEqual("Bibi", dogs[1000].Name);
 	}

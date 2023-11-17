@@ -15,7 +15,7 @@ public class ExcelService
 	/// </summary>
 	/// <param name="path"> The filepath of the excel file </param>
 	/// <returns></returns>
-	public List<Dog> Excel(string path)
+	public List<Dog> ImportFromExcelFile(string path)
 	{
 		List<Dog> dogs;
 
@@ -37,7 +37,7 @@ public class ExcelService
 		return Edogs;
 	}
 
-	List<Dog> ParseDogs(List<ExcelDogHelper> Edogs)
+	private List<Dog> ParseDogs(List<ExcelDogHelper> Edogs)
 	{
 		List<Dog> dogs = new();
 
