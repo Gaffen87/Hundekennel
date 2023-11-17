@@ -20,18 +20,18 @@ public class DBAccess : IDBAccess
 		this.connectionString = config.GetConnectionString("MyDBConnection");
 	}
 
-	public async Task<IEnumerable<T>> LoadData<T, U>(string sql, U parameters)
+	public async Task<IEnumerable<T>> LoadData<T, U>(string sqlStatement, U parameters)
 	{
 		using IDbConnection conn = new SqlConnection(connectionString);
 
-		return await conn.QueryAsync<T>(sql, parameters, commandType: CommandType.StoredProcedure);
+		return await conn.QueryAsync<T>(sqlStatement, parameters, commandType: CommandType.StoredProcedure);
 	}
 
-	public async Task SaveData<T>(string sql, T parameters)
+	public async Task SaveData<T>(string sqlStatement, T parameters)
 	{
 		using IDbConnection conn = new SqlConnection(connectionString);
 
-		await conn.ExecuteAsync(sql, parameters, commandType: CommandType.StoredProcedure);
+		await conn.ExecuteAsync(sqlStatement, parameters, commandType: CommandType.StoredProcedure);
 	}
 	
 	public async Task SaveBulk<T>(T parameters)

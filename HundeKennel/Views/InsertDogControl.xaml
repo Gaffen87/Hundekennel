@@ -1,0 +1,234 @@
+﻿<UserControl
+    x:Class="HundeKennel.Views.InsertDogControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:HundeKennel.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+    xmlns:viewModel="clr-namespace:HundeKennel.ViewModels"
+    d:DataContext="{d:DesignInstance Type=viewModel:MainViewModel}"
+    d:DesignHeight="600"
+    d:DesignWidth="300"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <Style TargetType="syncfusion:SfTextBoxExt">
+            <Setter Property="Height" Value="20" />
+            <Setter Property="Width" Value="250" />
+        </Style>
+
+        <Style TargetType="Button">
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5" />
+                </Style>
+            </Style.Resources>
+        </Style>
+
+    </UserControl.Resources>
+    <Grid Background="#f48277">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <syncfusion:SfTextBoxExt Text="{Binding SelectedDog.Name, UpdateSourceTrigger=PropertyChanged}" Watermark="Indtast Navn" />
+        <syncfusion:SfTextBoxExt
+            Grid.Row="1"
+            Text="{Binding SelectedDog.Pedigree, UpdateSourceTrigger=PropertyChanged}"
+            Watermark="Indtast Stambog nr" />
+        <syncfusion:SfTextBoxExt
+            Grid.Row="2"
+            Text="{Binding SelectedDog.Chip, UpdateSourceTrigger=PropertyChanged}"
+            Watermark="Indtast Chip nr" />
+        <syncfusion:SfDatePicker
+            Grid.Row="3"
+            Width="250"
+            VerticalContentAlignment="Center"
+            ToolTip="Fødselsdato"
+            ToolTipService.InitialShowDelay="0"
+            Watermark="Vælg fødselsdato"
+            Value="{Binding SelectedDog.BirthDate, UpdateSourceTrigger=PropertyChanged}" />
+        <syncfusion:SfTextBoxExt
+            Grid.Row="4"
+            Text="{Binding SelectedDog.Sex, UpdateSourceTrigger=PropertyChanged}"
+            Watermark="Indtast Køn" />
+        <syncfusion:SfTextBoxExt
+            Grid.Row="5"
+            Text="{Binding SelectedDog.Color, UpdateSourceTrigger=PropertyChanged}"
+            Watermark="Indtast Farve" />
+        <syncfusion:SfTextBoxExt
+            Grid.Row="6"
+            Text="{Binding SelectedDog.Dad, UpdateSourceTrigger=PropertyChanged}"
+            Watermark="Indtast fars stambogs nr" />
+        <syncfusion:SfTextBoxExt
+            Grid.Row="7"
+            Text="{Binding SelectedDog.Mom, UpdateSourceTrigger=PropertyChanged}"
+            Watermark="Indtast mors stambogs nr" />
+        <syncfusion:SfTextBoxExt
+            Grid.Row="8"
+            Text="{Binding SelectedDog.DKTitles, UpdateSourceTrigger=PropertyChanged}"
+            Watermark="Indtast Dk Titler" />
+        <syncfusion:SfTextBoxExt
+            Grid.Row="9"
+            Text="{Binding SelectedDog.Titles, UpdateSourceTrigger=PropertyChanged}"
+            Watermark="Indtast Titler" />
+        <StackPanel Grid.Row="10" Orientation="Horizontal">
+            <syncfusion:SfTextBoxExt
+                Width="30"
+                Margin="20,0,0,0"
+                Text="{Binding SelectedDog.HD, UpdateSourceTrigger=PropertyChanged}"
+                Watermark="HD?" />
+            <syncfusion:SfTextBoxExt
+                Width="30"
+                Margin="10,0,0,0"
+                Text="{Binding SelectedDog.AD, UpdateSourceTrigger=PropertyChanged}"
+                Watermark="AD?" />
+            <syncfusion:SfTextBoxExt
+                Width="30"
+                Margin="10,0,0,0"
+                Text="{Binding SelectedDog.HZ, UpdateSourceTrigger=PropertyChanged}"
+                Watermark="HZ?" />
+            <syncfusion:SfTextBoxExt
+                Width="30"
+                Margin="10,0,0,0"
+                Text="{Binding SelectedDog.SP, UpdateSourceTrigger=PropertyChanged}"
+                Watermark="SP?" />
+            <syncfusion:SfTextBoxExt
+                Width="30"
+                Margin="10,0,0,0"
+                Text="{Binding SelectedDog.MB, UpdateSourceTrigger=PropertyChanged}"
+                Watermark="MB?" />
+            <CheckBox
+                Margin="10,0,0,0"
+                VerticalAlignment="Center"
+                Content="Død?"
+                IsChecked="{Binding SelectedDog.Dead, UpdateSourceTrigger=PropertyChanged}" />
+        </StackPanel>
+        <StackPanel Grid.Row="11" Orientation="Horizontal">
+            <syncfusion:SfDatePicker
+                Width="125"
+                Margin="20,0,0,0"
+                VerticalContentAlignment="Center"
+                ToolTip="Index dato"
+                ToolTipService.InitialShowDelay="0"
+                Watermark="vælg index Dato"
+                Value="{Binding SelectedDog.IndexDate, UpdateSourceTrigger=PropertyChanged}" />
+            <syncfusion:SfTextBoxExt
+                Width="125"
+                Text="{Binding SelectedDog.HDIndex, UpdateSourceTrigger=PropertyChanged}"
+                Watermark="HD Index" />
+        </StackPanel>
+        <StackPanel Grid.Row="12" Orientation="Horizontal">
+            <syncfusion:SfTextBoxExt
+                Width="120"
+                Margin="20,0,0,0"
+                Text="{Binding SelectedDog.AK, UpdateSourceTrigger=PropertyChanged}"
+                Watermark="Avlskåring" />
+            <syncfusion:SfTextBoxExt
+                Width="120"
+                Margin="10,0,0,0"
+                Text="{Binding SelectedDog.BreedingStatus, UpdateSourceTrigger=PropertyChanged}"
+                Watermark="Avls status" />
+        </StackPanel>
+        <StackPanel
+            Grid.Row="13"
+            HorizontalAlignment="Center"
+            Orientation="Horizontal">
+            <Button
+                Width="100"
+                Height="30"
+                Content="Tilknyt ejer">
+                <Button.BitmapEffect>
+                    <DropShadowBitmapEffect
+                        Direction="320"
+                        Opacity="0.5"
+                        ShadowDepth="10"
+                        Softness="1"
+                        Color="Black" />
+                </Button.BitmapEffect>
+            </Button>
+            <Button
+                Width="100"
+                Height="30"
+                Margin="10,0,0,0"
+                Content="Tilknyt Opdrætter">
+                <Button.BitmapEffect>
+                    <DropShadowBitmapEffect
+                        Direction="320"
+                        Opacity="0.5"
+                        ShadowDepth="10"
+                        Softness="1"
+                        Color="Black" />
+                </Button.BitmapEffect>
+            </Button>
+        </StackPanel>
+        <Button
+            Grid.Row="14"
+            Height="30"
+            HorizontalAlignment="Center"
+            Command="{Binding ImageconverterCommand}"
+            Content="Indsæt billede">
+            <Button.BitmapEffect>
+                <DropShadowBitmapEffect
+                    Direction="320"
+                    Opacity="0.5"
+                    ShadowDepth="10"
+                    Softness="1"
+                    Color="Black" />
+            </Button.BitmapEffect>
+        </Button>
+        <StackPanel
+            Grid.Row="16"
+            Margin="0,-10,0,10"
+            HorizontalAlignment="Center"
+            Orientation="Horizontal">
+            <Button
+                Width="100"
+                Click="Button_Click"
+                Command="{Binding InsertDogCommand}"
+                CommandParameter="{Binding SelectedDog}"
+                Content="Gem"
+                FontWeight="Bold">
+                <Button.BitmapEffect>
+                    <DropShadowBitmapEffect
+                        Direction="320"
+                        Opacity="0.5"
+                        ShadowDepth="10"
+                        Softness="1"
+                        Color="Black" />
+                </Button.BitmapEffect>
+            </Button>
+            <Button
+                Width="100"
+                Margin="100,0,0,0"
+                Click="Button_Click_1"
+                Content="Annuller"
+                FontWeight="DemiBold">
+                <Button.BitmapEffect>
+                    <DropShadowBitmapEffect
+                        Direction="320"
+                        Opacity="0.5"
+                        ShadowDepth="10"
+                        Softness="1"
+                        Color="Black" />
+                </Button.BitmapEffect>
+            </Button>
+        </StackPanel>
+    </Grid>
+</UserControl>

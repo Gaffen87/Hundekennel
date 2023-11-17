@@ -10,19 +10,31 @@ namespace HundeKennel.Services;
 
 public class ExcelService
 {
+	/// <summary>
+	/// Opens an excel file and tries to read all rows into a List<ExcelDogHelper> and then converts that list into a List<Dog>
+	/// </summary>
+	/// <param name="path"> The filepath of the excel file </param>
+	/// <returns></returns>
 	public List<Dog> Excel(string path)
 	{
 		List<Dog> dogs;
 
+		var Edogs = ImportIntoList(path);
+
+		dogs = ParseDogs(Edogs);
+
+		return dogs;
+	}
+
+	private List<ExcelDogHelper> ImportIntoList(string path)
+	{
 		using var stream = File.OpenRead(path);
 		using var importer = new ExcelImporter(stream);
 
 		ExcelSheet sheet = importer.ReadSheet();
 		List<ExcelDogHelper> Edogs = sheet.ReadRows<ExcelDogHelper>().ToList();
 
-		dogs = ParseDogs(Edogs);
-
-		return dogs;
+		return Edogs;
 	}
 
 	List<Dog> ParseDogs(List<ExcelDogHelper> Edogs)
@@ -36,7 +48,6 @@ public class ExcelService
 				Pedigree = Edog.Pedigree.Trim(),
 				Chip = Edog.Chip,
 				Name = Edog.Name,
-				//Sex = Edog.Sex == "H" ? "Han" : "Tæve",
 				Sex = Edog.Sex,
 				Color = Edog.Color,
 				DKTitles = Edog.DKTitles,
@@ -73,21 +84,6 @@ public class ExcelService
 			dogs.Add(dog);
 		}
 
-		//dogs = FindParents(dogs);
 		return dogs;
 	}
-
-	//public List<Dog> FindParents(List<Dog> dogs)
-	//{
-	//	foreach (Dog dog in dogs)
-	//	{
-	//		dog.Parents = new()
-	//		{
-	//			dogs.FirstOrDefault(x => x.Pedigree == dog.Dad) ?? new Dog() { Name = "Ingen Data" },
-	//			dogs.FirstOrDefault(x => x.Pedigree == dog.Mom) ?? new Dog() { Name = "Ingen Data" }
-	//		};
-	//	}
-
-	//	return dogs;
-	//}
 }

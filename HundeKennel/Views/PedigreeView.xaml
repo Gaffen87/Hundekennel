@@ -28,7 +28,16 @@
             Grid.ColumnSpan="2"
             Margin="-10,0,-10,0"
             Source="/Resources/6530128f75731_thumb9002.png"
-            Stretch="Fill" />
+            Stretch="Fill">
+            <Image.BitmapEffect>
+                <DropShadowBitmapEffect
+                    Direction="320"
+                    Opacity="0.5"
+                    ShadowDepth="10"
+                    Softness="1"
+                    Color="Black" />
+            </Image.BitmapEffect>
+        </Image>
 
         <syncfusion:SfTreeView
             x:Name="TreeViewLeft"
@@ -39,6 +48,14 @@
             ItemHeight="60"
             ItemsSource="{Binding TreeViewDogLeft, UpdateSourceTrigger=PropertyChanged}"
             ShowLines="True">
+            <syncfusion:SfTreeView.BitmapEffect>
+                <DropShadowBitmapEffect
+                    Direction="320"
+                    Opacity="0.5"
+                    ShadowDepth="10"
+                    Softness="1"
+                    Color="Black" />
+            </syncfusion:SfTreeView.BitmapEffect>
             <syncfusion:SfTreeView.ItemTemplate>
                 <DataTemplate>
                     <Grid>
@@ -175,6 +192,25 @@
                                 </Button>
                             </StackPanel>
                         </StackPanel>
+                        <Image
+                            Height="20"
+                            Margin="0,0,10,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Bottom"
+                            Source="/Resources/warning.png">
+                            <Image.Style>
+                                <Style TargetType="Image">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsMatch}" Value="False">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Name}" Value="Ingen Data">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Image.Style>
+                        </Image>
                     </Grid>
                 </DataTemplate>
             </syncfusion:SfTreeView.ItemTemplate>
@@ -190,6 +226,14 @@
             ItemHeight="60"
             ItemsSource="{Binding TreeViewDogRight, UpdateSourceTrigger=PropertyChanged}"
             ShowLines="True">
+            <syncfusion:SfTreeView.BitmapEffect>
+                <DropShadowBitmapEffect
+                    Direction="320"
+                    Opacity="0.5"
+                    ShadowDepth="10"
+                    Softness="1"
+                    Color="Black" />
+            </syncfusion:SfTreeView.BitmapEffect>
             <syncfusion:SfTreeView.ItemTemplate>
                 <DataTemplate>
                     <Grid>
@@ -326,6 +370,25 @@
                                 </Button>
                             </StackPanel>
                         </StackPanel>
+                        <Image
+                            Height="20"
+                            Margin="0,0,10,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Bottom"
+                            Source="/Resources/warning.png">
+                            <Image.Style>
+                                <Style TargetType="Image">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsMatch}" Value="False">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Name}" Value="Ingen Data">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Image.Style>
+                        </Image>
                     </Grid>
                 </DataTemplate>
             </syncfusion:SfTreeView.ItemTemplate>

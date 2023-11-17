@@ -17,7 +17,7 @@ namespace HundeKennel.Views
 
 		private void DogDetailsGrid_AutoGeneratingPropertyGridItem(object sender, Syncfusion.Windows.PropertyGrid.AutoGeneratingPropertyGridItemEventArgs e)
 		{
-			if (e.DisplayName == "Parents" || e.DisplayName == "BreederID" || e.DisplayName == "OwnerID" || e.DisplayName == "BitImage" || e.DisplayName == "Image")
+			if (e.DisplayName == "Parents" || e.DisplayName == "BreederID" || e.DisplayName == "OwnerID" || e.DisplayName == "BitImage" || e.DisplayName == "Image" || e.DisplayName == "Icon" || e.DisplayName == "IsMatch")
 				e.Cancel = true;
         }
     }

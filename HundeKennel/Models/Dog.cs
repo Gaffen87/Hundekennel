@@ -1,4 +1,5 @@
-﻿using DateTimeExtensions;
+﻿using Dapper;
+using DateTimeExtensions;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -22,31 +23,38 @@ public class Dog
     [DisplayName("Farve")]
     public string? Color { get; set; }
 
+    [DisplayName("Danske Titler")]
     public string? DKTitles { get; set; }
+    [DisplayName("Titler")]
     public string? Titles { get; set; }
 
     public string? HD { get; set; }
     public string? AD { get; set; }
     public string? HZ { get; set; }
     public string? SP { get; set; }
+    [DisplayName("Index Dato")]
     public DateTime? IndexDate { get; set; }
     public string? HDIndex { get; set; }
+    [DisplayName("Død?")]
     public bool Dead { get; set; }
 
     public string? AK { get; set; }
+    [DisplayName("Avlsstatus")]
     public string? BreedingStatus { get; set; }
     public string? MB { get; set; }
     public byte[]? Image { get; set; }
 
+    [DisplayName("Far stambog")]
     public string? Dad { get; set; }
+    [DisplayName("Mor stambog")]
     public string? Mom { get; set; }
 
     public int? BreederID { get; set; }
     public int? OwnerID { get; set; }
-    //   [NotMapped]
-    //public Breeder? Breeder { get; set; }
-    //[NotMapped]
-    //public Owner? Owner { get; set; }
+
+    [NotMapped]
+    public bool IsMatch { get; set; } = false;
+
     [Dapper.NotMapped]
     public ObservableCollection<Dog?>? Parents { get; set; } = new();
     [Dapper.NotMapped]

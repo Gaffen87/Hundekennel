@@ -18,4 +18,15 @@ public partial class MainWindow : Window
 	{
 		viewModel.OpenDetails();
 	}
+
+	private void Button_Click(object sender, RoutedEventArgs e)
+	{
+		viewModel.SelectedDog = new();
+		InsertDogView.Visibility = Visibility.Visible;
+    }
+
+	private void DogListView_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+	{
+		DogListView.ScrollIntoView(viewModel.SelectedDog);
+	}
 }

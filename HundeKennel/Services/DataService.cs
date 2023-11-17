@@ -22,19 +22,30 @@ public class DataService
 		this.db = dBAccess;
 	}
 
-	// Returns a list of 1 dog from db
+	/// <summary>
+	/// Retrieves 1 dog from the db
+	/// </summary>
+	/// <param name="pedigree"> Pedigree that is used as search parameter in the db </param>
+	/// <returns> An IEnumerable<Dog> containing 1 dog if found </returns>
 	public async Task<IEnumerable<Dog>> RetrieveDog(string pedigree)
 	{
 		return await db.LoadData<Dog, dynamic>("spRetrieveDog", new { Pedigree = pedigree });
 	}
 
-	// returns a list of all dogs from db
+	/// <summary>
+	/// Retrieves all dogs from the db
+	/// </summary>
+	/// <returns> An IEnumerable<Dog> containing all dogs in the db </returns>
 	public async Task<IEnumerable<Dog>> RetrieveAllDogs()
 	{
 		return await db.LoadData<Dog, dynamic>("spRetrieveAllDogs", new { } );
 	}
 
-	// Inserts a dog in db
+	/// <summary>
+	/// Used to insert 1 dog in the db
+	/// </summary>
+	/// <param name="dog"> The dog object you want to insert </param>
+	/// <returns></returns>
 	public Task InsertDog(Dog dog) =>
 		db.SaveData("spInsertDog", new
 		{
@@ -63,15 +74,27 @@ public class DataService
 			dog.OwnerID
 		});
 
-	// Inserts a list of dogs in db
+	/// <summary>
+	/// Used to insert multiple dogs from a list
+	/// </summary>
+	/// <param name="dogs"> The list of dog objects you want to insert </param>
+	/// <returns></returns>
 	public Task InsertList(List<Dog> dogs) =>
 		db.SaveBulk(dogs);
 
-	// deletes a dog with matching pedigree from db
+	/// <summary>
+	/// Used to delete a dog from the db
+	/// </summary>
+	/// <param name="pedigree"> The pedigree string of the dog object you want to delete </param>
+	/// <returns></returns>
 	public Task DeleteDog(string pedigree) =>
-		db.SaveData("spDeleteDog", pedigree);
+		db.SaveData("spDeleteDog", new { pedigree });
 
-	// Updates dog with matching pedigree in db
+	/// <summary>
+	/// Used to update a dog in the db
+	/// </summary>
+	/// <param name="dog"> The updated dog object you want to update in the db</param>
+	/// <returns></returns>
 	public Task UpdateDog(Dog dog) =>
 		db.SaveData("spUpdateDog", new 
 		{

@@ -1,5 +1,7 @@
-﻿using HundeKennel.ViewModels;
+﻿using HundeKennel.Models;
+using HundeKennel.ViewModels;
 using Syncfusion.UI.Xaml.TreeView;
+using Syncfusion.UI.Xaml.TreeView.Engine;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,12 +23,9 @@ namespace HundeKennel.Views
 	/// </summary>
 	public partial class PedigreeView : Window
 	{
-		public PedigreeView(PedigreeViewModel viewModel, MainViewModel mvm)
+		public PedigreeView()
 		{
 			InitializeComponent();
-			DataContext = viewModel;
-			viewModel.TreeViewDogLeft = new() { mvm.LeftCompare! };
-			viewModel.TreeViewDogRight = new() { mvm.RightCompare! };
 		}
 	}
 }

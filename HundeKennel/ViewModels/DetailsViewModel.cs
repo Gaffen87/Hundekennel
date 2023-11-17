@@ -9,11 +9,6 @@ namespace HundeKennel.ViewModels
 {
 	public class DetailsViewModel
 	{
-        public DetailsViewModel()
-        {
-
-        }
-
         public Dog? SelectedDog { get; set; }
     }
 }

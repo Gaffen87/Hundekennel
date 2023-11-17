@@ -7,6 +7,7 @@
     xmlns:model="clr-namespace:HundeKennel.Models"
     xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
     xmlns:viewModels="clr-namespace:HundeKennel.ViewModels"
+    xmlns:views="clr-namespace:HundeKennel.Views"
     Title="MainWindow"
     Width="1000"
     Height="800"
@@ -19,6 +20,15 @@
         <Style x:Key="highlightStyle" TargetType="Run">
             <Setter Property="FontWeight" Value="Bold" />
         </Style>
+
+        <Style TargetType="Button">
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5" />
+                </Style>
+            </Style.Resources>
+        </Style>
+
     </Window.Resources>
     <Grid Margin="20" Background="#f48277">
         <Grid.ColumnDefinitions>
@@ -32,6 +42,54 @@
             <RowDefinition />
             <RowDefinition Height="0.5*" />
         </Grid.RowDefinitions>
+
+        <views:InsertDogControl
+            x:Name="InsertDogView"
+            Grid.Row="2"
+            Grid.RowSpan="3"
+            Grid.Column="1"
+            Margin="0,0,0,-20"
+            Panel.ZIndex="2"
+            Visibility="Collapsed" />
+
+        <StackPanel
+            Grid.Row="1"
+            Grid.Column="1"
+            HorizontalAlignment="Right"
+            Orientation="Horizontal">
+            <Button
+                Margin="10"
+                BorderBrush="Black"
+                Click="Button_Click"
+                Content="Tilføj ny hund..."
+                FontWeight="Bold"
+                Width="120"/>
+            <Button
+                Margin="10"
+                BorderBrush="Black"
+                Command="{Binding InsertFromExcelFileCommand}"
+                FontWeight="Bold"
+                Focusable="{Binding IsBusy}"
+                Width="120">
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal">
+                        <syncfusion:SfBusyIndicator ViewboxHeight="25" AnimationType="Rectangle" AnimationSpeed="50" IsBusy="{Binding Loading}"/>
+                        <TextBlock Text="Indsæt fra excel fil..." >
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Loading}" Value="True">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+
+        </StackPanel>
 
         <Image
             Grid.Row="3"
@@ -59,7 +117,16 @@
             Grid.ColumnSpan="2"
             Margin="-20,0,-20,0"
             Source="/Resources/6530128f75731_thumb9002.png"
-            Stretch="Fill" />
+            Stretch="Fill">
+            <Image.BitmapEffect>
+                <DropShadowBitmapEffect
+                    Direction="320"
+                    Opacity="0.5"
+                    ShadowDepth="10"
+                    Softness="1"
+                    Color="Black" />
+            </Image.BitmapEffect>
+        </Image>
         <Image
             Grid.Row="2"
             Grid.RowSpan="3"
@@ -71,6 +138,7 @@
 
         <ListView
             x:Name="DogListView"
+            SelectionChanged="DogListView_SelectionChanged"
             Grid.Row="2"
             Grid.RowSpan="2"
             d:ItemsSource="{d:SampleData}"
@@ -79,6 +147,14 @@
             MouseDoubleClick="DogListView_MouseDoubleClick"
             ScrollViewer.VerticalScrollBarVisibility="Visible"
             SelectedItem="{Binding SelectedDog, UpdateSourceTrigger=PropertyChanged}">
+            <ListView.BitmapEffect>
+                <DropShadowBitmapEffect
+                    Direction="320"
+                    Opacity="0.5"
+                    ShadowDepth="10"
+                    Softness="1"
+                    Color="Black" />
+            </ListView.BitmapEffect>
             <ListView.Resources />
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
@@ -220,11 +296,45 @@
         </ListView>
 
         <Button
+            Grid.Row="4"
+            Grid.Column="1"
+            Width="80"
+            Height="80"
+            Margin="0,0,90,10"
+            Command="{Binding DeleteDogCommand}"
+            CommandParameter="{Binding SelectedDog}"
+            ToolTip="Slet">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="100" />
+                </Style>
+            </Button.Resources>
+            <Button.Background>
+                <ImageBrush ImageSource="/Resources/deleteicon.bmp" Stretch="UniformToFill" />
+            </Button.Background>
+        </Button>
+
+        <Button
             Grid.Row="1"
-            Margin="0,15,0,15"
+            Margin="0,2,0,5"
             HorizontalAlignment="Center"
+            Background="LightGray"
+            BorderBrush="Black"
             Command="{Binding ShowTreeViewCommand}"
-            Content="Åben sammenligning" />
+            FontWeight="DemiBold">
+            <Button.BitmapEffect>
+                <DropShadowBitmapEffect
+                    Direction="320"
+                    Opacity="0.5"
+                    ShadowDepth="10"
+                    Softness="1"
+                    Color="Black" />
+            </Button.BitmapEffect>
+            <StackPanel>
+                <TextBlock HorizontalAlignment="Center" FontWeight="Bold"><Run Text="Åben" /></TextBlock>
+                <TextBlock HorizontalAlignment="Center" FontWeight="Bold"><Run Text="Sammenligning" /></TextBlock>
+            </StackPanel>
+        </Button>
 
         <Grid
             Grid.Row="4"
@@ -310,26 +420,44 @@
         </Grid>
         <StackPanel
             Grid.Row="1"
-            Margin="33,0,0,0"
+            Margin="3,0,0,0"
             HorizontalAlignment="Left"
-            VerticalAlignment="Center">
+            VerticalAlignment="Center"
+            Orientation="Horizontal">
             <Button
+                Padding="5"
                 Command="{Binding SetCompareDogsCommand}"
                 CommandParameter="Left"
-                Content="1. hund" />
-            <Label Content="{Binding LeftCompare.Name}" />
+                Content="Indsæt"
+                FontWeight="DemiBold" />
+            <syncfusion:SfTextBoxExt
+                Width="150"
+                Margin="10,0,0,0"
+                Focusable="False"
+                Text="{Binding LeftCompare.Name}"
+                TextWrapping="NoWrap"
+                Watermark="1. hund til sammenligning" />
         </StackPanel>
-        
+
         <StackPanel
             Grid.Row="1"
-            Margin="0,0,33,0"
+            Margin="0,0,3,0"
             HorizontalAlignment="Right"
-            VerticalAlignment="Center">
+            VerticalAlignment="Center"
+            Orientation="Horizontal">
+            <syncfusion:SfTextBoxExt
+                Width="150"
+                Margin="0,0,10,0"
+                Focusable="False"
+                Text="{Binding RightCompare.Name}"
+                TextWrapping="NoWrap"
+                Watermark="2. hund til sammenligning" />
             <Button
+                Padding="5"
                 Command="{Binding SetCompareDogsCommand}"
                 CommandParameter="Right"
-                Content="2. hund" />
-            <Label Content="{Binding RightCompare.Name}" />
+                Content="Indsæt"
+                FontWeight="DemiBold" />
         </StackPanel>
 
     </Grid>

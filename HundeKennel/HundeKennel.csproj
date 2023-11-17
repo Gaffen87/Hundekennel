@@ -10,9 +10,12 @@
   <ItemGroup>
     <None Remove="Resources\6530128f75731_thumb9002.png" />
     <None Remove="Resources\BeFunky-collage-8.webp" />
+    <None Remove="Resources\deleteicon.bmp" />
+    <None Remove="Resources\deleteicon.jpg" />
     <None Remove="Resources\dogicon.bmp" />
     <None Remove="Resources\petindericon.png" />
     <None Remove="Resources\sex-love-life-2015-06-tindog-main.webp" />
+    <None Remove="Resources\warning.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -44,6 +47,9 @@
     <Resource Include="Resources\BeFunky-collage-8.webp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\deleteicon.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\dogicon.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
@@ -51,6 +57,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\sex-love-life-2015-06-tindog-main.webp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\warning.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
