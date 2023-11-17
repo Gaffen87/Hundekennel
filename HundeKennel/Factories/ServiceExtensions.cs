@@ -9,7 +9,7 @@ namespace HundeKennel.Factories;
 
 public static class ServiceExtensions
 {
-	public static void AddDetailsFactory<TView>(this IServiceCollection services)
+	public static void AddViewFactory<TView>(this IServiceCollection services)
 		where TView : class
 	{
 		services.AddTransient<TView>();

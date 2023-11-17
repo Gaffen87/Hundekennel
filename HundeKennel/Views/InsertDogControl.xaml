@@ -182,7 +182,7 @@
             Grid.Row="14"
             Height="30"
             HorizontalAlignment="Center"
-            Command="{Binding ImageconverterCommand}"
+            Command="{Binding InsertImageCommand}"
             Content="Indsæt billede">
             <Button.BitmapEffect>
                 <DropShadowBitmapEffect

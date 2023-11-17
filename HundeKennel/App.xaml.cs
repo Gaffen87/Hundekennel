@@ -33,12 +33,12 @@ public partial class App : Application
 				// Add DetailsView and its viewmodel to services, + factory that creates them
 				services.AddTransient<DetailsView>();
 				services.AddTransient<DetailsViewModel>();
-				services.AddDetailsFactory<DetailsView>();
+				services.AddViewFactory<DetailsView>();
 
 				// 
 				services.AddTransient<PedigreeView>();
 				services.AddTransient<PedigreeViewModel>();
-				services.AddDetailsFactory<PedigreeView>();
+				services.AddViewFactory<PedigreeView>();
 
 				// Add Database services and excel reader class to services
 				services.AddTransient<DataService>();

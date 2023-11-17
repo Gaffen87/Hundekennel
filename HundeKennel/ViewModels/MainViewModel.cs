@@ -288,7 +288,7 @@ public partial class MainViewModel : ObservableObject
 	private byte[]? byteimage;
 
 	[RelayCommand]
-	public void Imageconverter() 
+	public void InsertImage() 
 	{
 		OpenFileDialog file = new OpenFileDialog();
 		if (file.ShowDialog() == true)
